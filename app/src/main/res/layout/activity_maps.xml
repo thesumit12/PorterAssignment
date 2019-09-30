@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.porterassignment.ui.viewModel.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/map_fragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.MapsActivity" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/margin_16">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_border">
+
+                <TextView
+                    android:id="@+id/green_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bullet"
+                    android:textSize="@dimen/text_size_22"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_src"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_src"
+                    android:textColor="@color/dot_green"
+                    android:layout_marginStart="@dimen/margin_10"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_src"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/green_dot"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:enabled="@{viewModel.isServiceable() ? true : false}"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:paddingTop="@dimen/margin_20"
+                    android:paddingBottom="@dimen/margin_20"
+                    android:text="@{viewModel.pickUpLocation}"
+                    android:textColor="@color/text_grey"
+                    android:onClick="@{() -> viewModel.selectSourceClicked()}"
+                    android:layout_marginStart="@dimen/margin_11"/>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintStart_toStartOf="@id/tv_src"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_src"
+                    android:background="@color/pinkish_grey"/>
+
+                <TextView
+                    android:id="@+id/red_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bullet"
+                    android:textSize="@dimen/text_size_22"
+                    app:layout_constraintStart_toStartOf="@id/green_dot"
+                    app:layout_constraintTop_toTopOf="@id/tv_dest"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_dest"
+                    android:textColor="@color/dot_red"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_dest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_12"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:enabled="@{viewModel.isServiceable() ? true : false}"
+                    app:layout_constraintStart_toEndOf="@id/red_dot"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line"
+                    android:paddingTop="@dimen/margin_20"
+                    android:paddingBottom="@dimen/margin_20"
+                    android:onClick="@{() -> viewModel.selectDestinationClicked()}"
+                    android:text="@{viewModel.dropLocation}"
+                    android:textColor="@color/text_grey"
+                    android:layout_marginStart="@dimen/margin_8"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_dest"
+                    app:layout_constraintTop_toBottomOf="@id/tv_dest"
+                    android:visibility="@{viewModel.isServiceable() ? View.GONE : View.VISIBLE}"
+                    android:background="#dd1e27"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_8"
+                    android:textSize="@dimen/text_size_12"
+                    android:textColor="#fff"
+                    android:text="@string/account_blocked"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

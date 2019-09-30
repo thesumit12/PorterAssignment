@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.porterassignment.ui.viewModel.SelectPlaceViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.view.SelectPlaceActivity">
+
+       <EditText
+           android:id="@+id/et_search"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:hint="@string/search_hint"
+           android:inputType="text"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           android:drawableStart="@drawable/ic_search"
+           android:padding="@dimen/margin_12"
+           android:textColor="#cccccc"
+           android:textSize="@dimen/text_size_14"
+           android:drawablePadding="@dimen/margin_8"
+           android:layout_margin="@dimen/margin_16"
+           android:background="@drawable/layout_border"
+           android:text="@={viewModel.searchString}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/places_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            app:layout_constraintStart_toStartOf="@id/et_search"
+            app:layout_constraintEnd_toEndOf="@id/et_search"
+            app:layout_constraintTop_toBottomOf="@id/et_search"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
