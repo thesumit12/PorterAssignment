@@ -1,4 +1,4 @@
-package com.example.porterassignment.ui
+package com.example.porterassignment.ui.view
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,9 +13,9 @@ import com.example.porterassignment.R
 import com.example.porterassignment.common.util.Constant
 import com.example.porterassignment.common.util.toast
 import com.example.porterassignment.components.BaseActivity
+import com.example.porterassignment.components.MarkerInfoAdapter
 import com.example.porterassignment.databinding.ActivityMapsBinding
 import com.example.porterassignment.model.EventIdentifier
-import com.example.porterassignment.ui.view.SelectPlaceActivity
 import com.example.porterassignment.ui.viewModel.HomeViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -70,6 +70,8 @@ class MapsActivity : BaseActivity<ActivityMapsBinding, HomeViewModel>(), OnMapRe
             getCurrentLocation()
         }
 
+        mMap.setInfoWindowAdapter(MarkerInfoAdapter(layoutInflater))
+
     }
 
     private fun subscribeObservers() {
@@ -97,6 +99,7 @@ class MapsActivity : BaseActivity<ActivityMapsBinding, HomeViewModel>(), OnMapRe
                 showWaitingDialog("")
             }else{
                 hideWaitingDialog()
+                showMarker()
             }
         })
     }
@@ -125,7 +128,7 @@ class MapsActivity : BaseActivity<ActivityMapsBinding, HomeViewModel>(), OnMapRe
     private fun checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(
                 this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-        == PackageManager.PERMISSION_GRANTED) {
+            == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true
             updateUi()
             getCurrentLocation()
@@ -199,6 +202,19 @@ class MapsActivity : BaseActivity<ActivityMapsBinding, HomeViewModel>(), OnMapRe
             mViewModel.mLastLocation = null
             checkLocationPermission()
         }
+    }
+
+    private fun showMarker() {
+        mMap.addMarker(MarkerOptions()
+            .position(LatLng(mViewModel.latitude ?: 0.0, mViewModel.longitude ?: 0.0))
+            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location_pin))
+            .title(mViewModel.cost)
+            .snippet("${mViewModel.eta} mins")
+        ).showInfoWindow()
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+            LatLng(mViewModel.latitude ?: 0.0, mViewModel.longitude ?: 0.0), 15F
+        ))
     }
 
     companion object {

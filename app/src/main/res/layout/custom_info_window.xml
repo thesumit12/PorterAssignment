@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:text="999"
+        android:textSize="@dimen/text_size_16"
+        android:layout_marginStart="@dimen/margin_8"
+        android:paddingTop="@dimen/margin_12"
+        android:paddingBottom="@dimen/margin_12"/>
+
+    <TextView
+        android:id="@+id/tv_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bullet"
+        android:textColor="#fff"
+        android:textSize="@dimen/text_size_16"
+        android:layout_marginStart="@dimen/margin_8"
+        />
+
+    <TextView
+        android:id="@+id/tv_eta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="@dimen/text_size_16"
+        android:layout_marginStart="@dimen/margin_8"
+        android:text="15 mins"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="@dimen/margin_32"
+        android:background="#fff"
+        android:layout_marginStart="@dimen/margin_8"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_marginStart="@dimen/margin_8"
+        android:textSize="@dimen/text_size_16"
+        android:text="@string/book_now"
+        android:paddingEnd="@dimen/margin_8"
+        />
+
+</LinearLayout>

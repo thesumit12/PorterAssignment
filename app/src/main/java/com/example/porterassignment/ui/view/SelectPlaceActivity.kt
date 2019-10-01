@@ -118,8 +118,6 @@ class SelectPlaceActivity : BaseActivity<ActivitySelectPlaceBinding, SelectPlace
         val request = FetchPlaceRequest.builder(place.placeId, placeFields).build()
         placesClient.fetchPlace(request).addOnSuccessListener {response->
             val location = response.place.latLng
-            Log.e("Sumit","Place ${response.place}")
-            Log.e("Sumit","${location?.latitude},${location?.longitude}")
             intent.putExtra(Constant.KEY_LAT, location?.latitude)
             intent.putExtra(Constant.KEY_LNG, location?.longitude)
             setResult(intent)

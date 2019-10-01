@@ -17,20 +17,29 @@ open class ApiManager(private val apiService: IApiService) {
 
     open suspend fun checkServiceability(): Boolean {
         val request = apiService.getServiceabilityStatus()
-        val result = executeNetworkCall(request) as ServiceabilityResponse
-        return result.serviceable
+        val result = executeNetworkCall(request)
+        return if (result is ServiceabilityResponse)
+            result.serviceable
+        else
+            true
     }
 
     open suspend fun getCost(lat: Double, lng: Double): String {
         val request = apiService.getCost(lat, lng)
-        val result = executeNetworkCall(request) as VehicleCost
-        return result.cost
+        val result = executeNetworkCall(request)
+        return if (result is VehicleCost)
+            result.cost
+        else
+            "-1"
     }
 
     open suspend fun getEta(lat: Double, lng: Double): String {
         val request = apiService.getEta(lat, lng)
-        val result = executeNetworkCall(request) as ETA
-        return result.eta
+        val result = executeNetworkCall(request)
+        return if (result is ETA)
+            result.eta
+        else
+            "-1"
     }
 
     @ExperimentalCoroutinesApi

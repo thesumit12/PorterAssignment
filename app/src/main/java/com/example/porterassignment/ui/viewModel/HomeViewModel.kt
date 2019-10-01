@@ -62,7 +62,7 @@ class HomeViewModel @ExperimentalCoroutinesApi constructor(val repository: Vehic
         waitingDialogMsg.value = "Getting result"
         uiScope.launch {
             eta = repository.getEta(latitude ?: 0.0, longitude ?: 0.0)
-            Log.e("ETA","Cost $cost")
+            Log.e("ETA"," $eta")
             waitingDialogMsg.value = null
         }
     }
